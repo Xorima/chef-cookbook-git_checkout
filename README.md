@@ -34,8 +34,10 @@ Add a callback URL, does not matter the given url, it requires one however.
 - `access_key` - (Required) Access key for the OAuth Consumer
 - `secret_key` - (Required) Secret key for the OAuth Consumer
 - `path` - (Required) The root path to checkout into
+- `owner` - (Required) The owner for the checked repository
+- `group` - (Required) The group for the checked out repository
 - `directory_seperator` - (Optional) This will create directories and split the path for the given string, eg: if given a repo of: chef-cookbooks-git_checkout and a directory_seperator of `-` then it will clone into `<path>/chef/cookbooks/git_checkout`
-- repo_filter - (Optional) Regex filter for repositories you wish to clone. 
+- `repo_filter` - (Optional) Regex filter for repositories you wish to clone. 
 
 
 ### github
@@ -57,5 +59,7 @@ Set permissions to: Repo (All) - The cookbook only required read access to priva
 - `org` - (Optional) If given we will clone from this org instead of from the supplied username
 - `access_key` - (Optional) Personal Access Token for the OAuth Consumer, if not supplied this resource will only clone public repositories
 - `path` - (Required) The root path to checkout into
+- `owner` - (Required) The owner for the checked repository
+- `group` - (Required) The group for the checked out repository
 - `directory_seperator` - (Optional) This will create directories and split the path for the given string, eg: if given a repo of: chef-cookbooks-git_checkout and a directory_seperator of `-` then it will clone into `<path>/chef/cookbooks/git_checkout`
 - repo_filter - (Optional) Regex filter for repositories you wish to clone. 

@@ -31,7 +31,7 @@ def get_repositories(uri, username, access_key)
   repos_filtered = []
 
   repositories.each do |repo|
-    repos_filtered.push('href' => repo['git_url'], 'name' => repo['name'])
+    repos_filtered.push('href' => repo['ssh_url'], 'name' => repo['name'])
   end
   Chef::Log.info(repos_filtered)
   repos_filtered

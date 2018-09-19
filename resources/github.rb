@@ -4,6 +4,8 @@ property :username, String, name_property: true
 property :org, String
 property :access_key, String, required: false, sensitive: true
 property :path, String, required: true
+property :owner, String, required: true
+property :group, String, required: true
 property :directory_seperator, String
 property :repo_filter, default: /.*/
 
@@ -29,7 +31,7 @@ def get_repositories(uri, username, access_key)
   repos_filtered = []
 
   repositories.each do |repo|
-    repos_filtered.push('href' => repo['git_url'], 'name' => repo['name'])
+    repos_filtered.push('href' => repo['ssh_url'], 'name' => repo['name'])
   end
   Chef::Log.info(repos_filtered)
   repos_filtered
@@ -53,6 +55,8 @@ action :create do
         path = "#{new_resource.path}/#{repo['name'].split(new_resource.directory_seperator).join('/')}"
         directory path do
           recursive true
+          owener new_resource.owner
+          group  new_resource.group
         end
       end
       git path do

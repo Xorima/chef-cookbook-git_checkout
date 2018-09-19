@@ -4,7 +4,7 @@ maintainer_email '4923914+Xorima@users.noreply.github.com'
 license 'Apache-2.0'
 description 'Dynamically finds repositories and then clones them into the correct location'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '1.0.1'
+version '1.0.2'
 
 supports 'amazon'
 supports 'centos'

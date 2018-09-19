@@ -81,7 +81,7 @@ action :create do
         path = "#{new_resource.path}/#{repo['name'].split(new_resource.directory_seperator).join('/')}"
         directory path do
           recursive true
-          owener new_resource.owner
+          owner new_resource.owner
           group  new_resource.group
         end
       end

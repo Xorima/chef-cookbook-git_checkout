@@ -2,13 +2,13 @@
 
 This file is used to list changes made in each version of the git_checkout cookbook.
 
-# 1.0.3
+## 1.0.3
 
 Bug fix.
 
 - Fix issue where github would only return the first page of results
 
-# 1.0.0
+## 1.0.0
 
 Initial release.
 

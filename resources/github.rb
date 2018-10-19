@@ -34,7 +34,35 @@ def get_repositories(uri, username, access_key)
     repos_filtered.push('href' => repo['ssh_url'], 'name' => repo['name'])
   end
   Chef::Log.info(repos_filtered)
-  repos_filtered
+  next_uri = get_next_uri(repos['link'])
+  res = { 'repos' => repos_filtered, 'next' => next_uri }
+  res
+end
+
+def get_next_uri(link)
+  # Takes a "link" header string and returns an array of url, and rel
+  parts = link.split(',')
+  next_uri = nil
+  parts.each do |part|
+    if part.include?('next')
+    link_info = part.split(' ')
+    next_uri = URI(link_info[0].sub('>','').sub('<',''))
+    end
+  end
+  next_uri
+end
+
+def get_all_repositories(uri, username, access_key)
+  res = []
+  repos = get_repositories(uri, username, access_key)
+  res += repos['repos']
+
+  until repos['next'].nil?
+    uri = repos['next']
+    repos = get_repositories(uri, username, access_key)
+    res += repos['repos']
+  end
+  res
 end
 
 action :create do

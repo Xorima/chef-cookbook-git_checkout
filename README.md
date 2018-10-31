@@ -26,6 +26,7 @@ Set permissions to: Repositories -> Read
 Add a callback URL, does not matter the given url, it requires one however. 
 
 #### Actions
+
 - `:create` - Creates the repositories on disk
 
 #### Properties
@@ -51,6 +52,7 @@ Go to https://github.com/settings/tokens and create a new Personal Access Token
 Set permissions to: Repo (All) - The cookbook only required read access to private and public repositories, however this is not currently an option.
 
 #### Actions
+
 - `:create` - Creates the repositories on disk
 
 #### Properties

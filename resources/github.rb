@@ -33,20 +33,19 @@ def get_repositories(uri, username, access_key)
   repositories.each do |repo|
     repos_filtered.push('href' => repo['ssh_url'], 'name' => repo['name'])
   end
-  Chef::Log.info(repos_filtered)
   next_uri = get_next_uri(repos['link'])
   res = { 'repos' => repos_filtered, 'next' => next_uri }
   res
 end
 
 def get_next_uri(link)
-  # Takes a "link" header string and returns an array of url, and rel
+  return nil if link.nil?
   parts = link.split(',')
   next_uri = nil
   parts.each do |part|
     if part.include?('next')
-    link_info = part.split(' ')
-    next_uri = URI(link_info[0].sub('>','').sub('<',''))
+      link_info = part.split(' ')
+      next_uri = link_info[0].sub('>', '').sub('<', '')
     end
   end
   next_uri
@@ -56,9 +55,8 @@ def get_all_repositories(uri, username, access_key)
   res = []
   repos = get_repositories(uri, username, access_key)
   res += repos['repos']
-
   until repos['next'].nil?
-    uri = repos['next']
+    uri = URI(repos['next'])
     repos = get_repositories(uri, username, access_key)
     res += repos['repos']
   end
@@ -73,7 +71,7 @@ action :create do
     repo_uri = URI("https://api.github.com/orgs/#{new_resource.org}/repos")
   end
   Chef::Log.info(repo_uri)
-  repos_filtered = get_repositories(repo_uri, new_resource.username, new_resource.access_key)
+  repos_filtered = get_all_repositories(repo_uri, new_resource.username, new_resource.access_key)
   repos_filtered.each do |repo|
     clone = repo['name'].match(new_resource.repo_filter)
     unless clone.nil?
@@ -88,6 +86,8 @@ action :create do
         end
       end
       git path do
+        checkout_branch 'master'
+        enable_checkout false
         repository repo['href'].to_s
       end
     end

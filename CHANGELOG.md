@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the git_checkout cookbook.
 
+## 1.0.6
+
+Bug fix.
+
+- Set to checkout master only
+
 ## 1.0.3
 
 Bug fix.

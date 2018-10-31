@@ -86,6 +86,8 @@ action :create do
         end
       end
       git path do
+        checkout_branch 'master'
+        enable_checkout false
         repository repo['href'].to_s
       end
     end
